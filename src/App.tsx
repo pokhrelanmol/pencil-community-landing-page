@@ -1,10 +1,17 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import AboutCommunityLists from "./components/AboutCommunityLists";
+import CommunityOwner from "./components/CommunityOwner";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import {
+    actionTypes,
+    initialState,
+    usePageContent,
+} from "./contexts/PageContentContext";
 
 const App = () => {
+    const { state, dispatch } = usePageContent();
     return (
         <div className="app">
             <Box sx={{ backgroundColor: "customColor.light" }}>
@@ -22,13 +29,26 @@ const App = () => {
                     borderRadius: 1,
                 }}
                 variant="h5"
+                contentEditable={state.edit}
+                onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    dispatch({
+                        type: actionTypes.INPUT_CHANGE,
+                        payload: {
+                            ...state,
+                            textBelowHeroSection: e.currentTarget.innerText,
+                        },
+                    });
+                }}
             >
-                "Experiencing a new culture is like entering a whole new world
-                of sights, sounds, smells, and textures."
+                {state.preview
+                    ? state.textBelowHeroSection
+                    : initialState.textBelowHeroSection}
             </Typography>
-            <Box>
+            <Box sx={{ maxWidth: "90%", mx: "auto" }}>
                 <AboutCommunityLists />
             </Box>
+
+            <CommunityOwner />
         </div>
     );
 };

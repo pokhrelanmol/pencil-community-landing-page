@@ -47,11 +47,12 @@ const Header = () => {
     return (
         <Box
             sx={{
-                flexGrow: 1,
+                position: "sticky",
+                minWidth: "100%",
+                backgroundColor: "customColor.light",
             }}
         >
             <Box
-                position="sticky"
                 sx={{
                     backgroundColor: "customColor.light",
                 }}

@@ -21,7 +21,6 @@ const Hero = () => {
                 type: actionTypes.INPUT_CHANGE,
                 payload: { ...state, heroImage: data },
             });
-            return data;
         }) as unknown as string;
     };
     return (

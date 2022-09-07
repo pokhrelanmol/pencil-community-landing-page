@@ -1,6 +1,7 @@
 import {
     Box,
     Button,
+    IconButton,
     List,
     ListItem,
     ListItemButton,
@@ -9,17 +10,18 @@ import {
     Paper,
     Stack,
     styled,
+    Tooltip,
+    Typography,
 } from "@mui/material";
-import { Forward } from "@mui/icons-material";
+import { Check, Delete } from "@mui/icons-material";
 import React from "react";
 import {
     actionTypes,
     initialState,
     usePageContent,
 } from "../contexts/PageContentContext";
-import { platform } from "os";
 
-const ForwardIcon = styled(Forward)(({ theme }) => ({
+const CheckIcon = styled(Check)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
     color: "white",
     fontSize: 30,
@@ -39,15 +41,16 @@ const AboutCommunityCard = ({
         <ListItem
             disablePadding
             sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                width: "500px",
+                maxWidth: "80%",
             }}
         >
-            <ListItemButton>
+            <ListItem
+                sx={{
+                    "&:hover": { backgroundColor: "transparent" },
+                }}
+            >
                 <ListItemIcon>
-                    <ForwardIcon />
+                    <CheckIcon />
                 </ListItemIcon>
                 <ListItemText
                     onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,43 +68,47 @@ const AboutCommunityCard = ({
                         ? content
                         : initialState.aboutCommunityList[id].content}
                 </ListItemText>
-            </ListItemButton>
+            </ListItem>
         </ListItem>
     );
 };
+
 const AboutCommunityLists = () => {
     const { state, dispatch } = usePageContent();
-    const handleAddMoreList = () => {
-        dispatch({
-            type: actionTypes.ADD_MORE_LIST,
-        });
-    };
+
     return (
-        <Paper sx={{ backgroundColor: "customColor.light", pt: 5 }}>
-            <nav aria-label="main mailbox folders">
-                <List
-                    sx={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr ",
-                        placeItems: "center",
-                        alignItems: "space-around",
-                    }}
-                >
-                    <>
-                        {state.aboutCommunityList.map((content, index) => (
-                            <AboutCommunityCard
-                                key={index}
-                                id={index}
-                                content={content.content}
-                            />
-                        ))}
-                    </>
-                </List>
-                <Button sx={{ float: "right" }} onClick={handleAddMoreList}>
-                    Add more list
-                </Button>
-            </nav>
-        </Paper>
+        <Box sx={{ pt: 5 }}>
+            <List
+                sx={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gridTemplateRows: "1fr 1fr",
+                    justifyItems: "end",
+                }}
+            >
+                {state.aboutCommunityList.map((content, index) => (
+                    <AboutCommunityCard
+                        key={index}
+                        id={index}
+                        content={content.content}
+                    />
+                ))}
+            </List>
+            {state.edit && (
+                <Tooltip arrow title="Delete list item">
+                    <IconButton
+                        sx={{ float: "right" }}
+                        onClick={() => {
+                            dispatch({
+                                type: actionTypes.DELETE_LIST_ITEM,
+                            });
+                        }}
+                    >
+                        <Delete />
+                    </IconButton>
+                </Tooltip>
+            )}
+        </Box>
     );
 };
 

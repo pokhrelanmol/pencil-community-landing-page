@@ -6,7 +6,19 @@ interface PageContentType {
     heroImage: string;
     heroHeading: string;
     heroSubHeading: string;
+    textBelowHeroSection: string;
     aboutCommunityList: Array<{ id: number; content: string }>;
+    communityOwnerImage: string;
+    communityOwnerName: string;
+    communityOwnerHeading: string;
+    communityOwnerDescription: string;
+
+    communityOwnerSocialMediaLink: {
+        facebook?: string;
+        youtube?: string;
+        linkedin?: string;
+        twitter?: string;
+    };
     edit: boolean;
     preview: boolean;
     saved: boolean;
@@ -21,7 +33,7 @@ export enum actionTypes {
     SET_INITIAL_STATE = "SET_INITIAL_STATE",
     EDIT = "EDIT",
     INPUT_CHANGE = "INPUT_CHANGE",
-    ADD_MORE_LIST = "ADD_MORE_LIST",
+    DELETE_LIST_ITEM = "DELETE_LIST_ITEM",
     LIST_ITEM_CHANGE = "LIST_ITEM_CHANGE",
     PREVIEW = "PREVIEW",
     SAVE = "SAVE",
@@ -49,8 +61,8 @@ type PREVIEW = {
     type: actionTypes.PREVIEW;
     payload: PageContentType;
 };
-type ADD_MORE_LIST = {
-    type: actionTypes.ADD_MORE_LIST;
+type DELETE_LIST_ITEM = {
+    type: actionTypes.DELETE_LIST_ITEM;
 };
 
 type SAVE = {
@@ -61,7 +73,7 @@ type Actions =
     | EDIT
     | INPUT_CHANGE
     | LIST_ITEM_CHANGE
-    | ADD_MORE_LIST
+    | DELETE_LIST_ITEM
     | PREVIEW
     | SAVE;
 
@@ -75,18 +87,22 @@ export let initialState: PageContentType = {
     heroImage: "",
     heroHeading: "",
     heroSubHeading: "",
+    textBelowHeroSection: "",
+    communityOwnerImage: "",
+    communityOwnerName: "",
+    communityOwnerHeading: "",
+    communityOwnerDescription: "",
+
+    communityOwnerSocialMediaLink: {
+        facebook: "",
+        youtube: "",
+        linkedin: "",
+        twitter: "",
+    },
     edit: false,
     saved: false,
     preview: false,
-    aboutCommunityList: [
-        { id: 1, content: "lorem ipsum dolor sit amet " },
-        { id: 2, content: "lorem ipsum dolor sit amet " },
-        { id: 3, content: "lorem ipsum dolor sit amet " },
-        {
-            id: 4,
-            content: "lorem ipsum dolor sit amet ",
-        },
-    ],
+    aboutCommunityList: [],
 };
 
 const reducer = (state: PageContentType, action: Actions) => {
@@ -104,8 +120,8 @@ const reducer = (state: PageContentType, action: Actions) => {
             };
         case actionTypes.INPUT_CHANGE:
             return action.payload;
+
         case actionTypes.LIST_ITEM_CHANGE:
-            console.log(state);
             return {
                 ...state,
                 aboutCommunityList: state.aboutCommunityList.map((item) =>
@@ -114,10 +130,14 @@ const reducer = (state: PageContentType, action: Actions) => {
                         : item
                 ),
             };
-        case actionTypes.ADD_MORE_LIST:
+        case actionTypes.DELETE_LIST_ITEM:
+            const poppedList = state.aboutCommunityList.pop();
+            console.log("popped");
             return {
                 ...state,
+                aboutCommunityList: state.aboutCommunityList,
             };
+
         case actionTypes.PREVIEW:
             return {
                 ...state,
@@ -148,7 +168,30 @@ export const PageContentProvider = ({
 }) => {
     const [state, dispatch] = React.useReducer(reducer, initialState);
     useEffect(() => {
-        // save initial state to local storage
+        // localStorage.setItem(
+        //     "initialdata",
+        //     JSON.stringify({
+        //         logo: "https://picsum.photos/200",
+        //         title: "Lorem ipsum dolor sit amet",
+        //         heroImage: "https://picsum.photos/200",
+        //         heroHeading: "Lorem ipsum dolor sit amet",
+        //         heroSubHeading: "Lorem ipsum dolor sit amet",
+        //         textBelowHeroSection: "Lorem ipsum dolor sit amet",
+        //         communityOwnerImage: "https://picsum.photos/200",
+        //         communityOwnerName: "Mia khalifa",
+        //         edit: false,
+        //         saved: false,
+        //         preview: false,
+        //         aboutCommunityList: [
+        //             { id: 0, content: "lorem ipsum dolor sit amet" },
+        //             { id: 1, content: "lorem ipsum dolor sit amet" },
+        //             { id: 2, content: "lorem ipsum dolor sit amet" },
+        //             { id: 3, content: "lorem ipsum dolor sit amet" },
+        //             { id: 4, content: "lorem ipsum dolor sit amet" },
+        //             { id: 5, content: "lorem ipsum dolor sit amet" },
+        //         ],
+        //     })
+        // );
 
         const initailData = JSON.parse(
             localStorage.getItem("initialdata") || "{}"
