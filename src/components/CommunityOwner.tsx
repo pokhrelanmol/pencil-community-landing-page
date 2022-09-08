@@ -83,6 +83,8 @@ const CommunityOwner = () => {
             sx={{
                 [theme.breakpoints.down("md")]: {
                     flexDirection: "column",
+                    alignItems: "center",
+                    gap: 3,
                 },
                 justifyContent: "space-around",
                 mt: 5,
@@ -142,6 +144,11 @@ const CommunityOwner = () => {
                                     e.currentTarget.innerText,
                             },
                         });
+                    }}
+                    sx={{
+                        [theme.breakpoints.down("md")]: {
+                            display: "none",
+                        },
                     }}
                     variant="h5"
                     textAlign="center"
