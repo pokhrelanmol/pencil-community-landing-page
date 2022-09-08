@@ -1,5 +1,7 @@
 import { Co2Sharp } from "@mui/icons-material";
 import React, { useContext, createContext, useEffect } from "react";
+import { faq } from "../assets/dummyData";
+import { setInitialDataToDb } from "../utils";
 interface PageContentType {
     logo: string;
     title: string;
@@ -19,6 +21,7 @@ interface PageContentType {
         linkedin?: string;
         twitter?: string;
     };
+    faqs: Array<{ id: number; question: string; answer: string }>;
     edit: boolean;
     preview: boolean;
     saved: boolean;
@@ -36,7 +39,9 @@ export enum actionTypes {
     DELETE_LIST_ITEM = "DELETE_LIST_ITEM",
     LIST_ITEM_CHANGE = "LIST_ITEM_CHANGE",
     PREVIEW = "PREVIEW",
+    FAQ_CHANGE = "FAQ_CHANGE",
     SAVE = "SAVE",
+    CANCEL_EDIT = "CANCEL_EDIT",
 }
 type SET_INITIAL_STATE = {
     type: actionTypes.SET_INITIAL_STATE;
@@ -57,6 +62,14 @@ type LIST_ITEM_CHANGE = {
         content: string;
     };
 };
+type FAQ_CHANGE = {
+    type: actionTypes.FAQ_CHANGE;
+    payload: {
+        id: number;
+        question: string;
+        answer: string;
+    };
+};
 type PREVIEW = {
     type: actionTypes.PREVIEW;
     payload: PageContentType;
@@ -68,14 +81,19 @@ type DELETE_LIST_ITEM = {
 type SAVE = {
     type: actionTypes.SAVE;
 };
+type CANCEL_EDIT = {
+    type: actionTypes.CANCEL_EDIT;
+};
 type Actions =
     | SET_INITIAL_STATE
     | EDIT
     | INPUT_CHANGE
     | LIST_ITEM_CHANGE
+    | FAQ_CHANGE
     | DELETE_LIST_ITEM
     | PREVIEW
-    | SAVE;
+    | SAVE
+    | CANCEL_EDIT;
 
 const PageContentContext = createContext<PageContentContextProps>(
     {} as PageContentContextProps
@@ -99,6 +117,7 @@ export let initialState: PageContentType = {
         linkedin: "",
         twitter: "",
     },
+    faqs: [],
     edit: false,
     saved: false,
     preview: false,
@@ -131,13 +150,24 @@ const reducer = (state: PageContentType, action: Actions) => {
                 ),
             };
         case actionTypes.DELETE_LIST_ITEM:
-            const poppedList = state.aboutCommunityList.pop();
-            console.log("popped");
+            state.aboutCommunityList.pop();
             return {
                 ...state,
                 aboutCommunityList: state.aboutCommunityList,
             };
-
+        case actionTypes.FAQ_CHANGE:
+            return {
+                ...state,
+                faqs: state.faqs.map((item) =>
+                    item.id === action.payload.id
+                        ? {
+                              ...item,
+                              question: action.payload.question,
+                              answer: action.payload.answer,
+                          }
+                        : item
+                ),
+            };
         case actionTypes.PREVIEW:
             return {
                 ...state,
@@ -155,6 +185,12 @@ const reducer = (state: PageContentType, action: Actions) => {
                 preview: false,
                 saved: true,
             };
+        case actionTypes.CANCEL_EDIT:
+            return {
+                ...state,
+                edit: false,
+                preview: false,
+            };
 
         default:
             return state;
@@ -168,30 +204,9 @@ export const PageContentProvider = ({
 }) => {
     const [state, dispatch] = React.useReducer(reducer, initialState);
     useEffect(() => {
-        // localStorage.setItem(
-        //     "initialdata",
-        //     JSON.stringify({
-        //         logo: "https://picsum.photos/200",
-        //         title: "Lorem ipsum dolor sit amet",
-        //         heroImage: "https://picsum.photos/200",
-        //         heroHeading: "Lorem ipsum dolor sit amet",
-        //         heroSubHeading: "Lorem ipsum dolor sit amet",
-        //         textBelowHeroSection: "Lorem ipsum dolor sit amet",
-        //         communityOwnerImage: "https://picsum.photos/200",
-        //         communityOwnerName: "Mia khalifa",
-        //         edit: false,
-        //         saved: false,
-        //         preview: false,
-        //         aboutCommunityList: [
-        //             { id: 0, content: "lorem ipsum dolor sit amet" },
-        //             { id: 1, content: "lorem ipsum dolor sit amet" },
-        //             { id: 2, content: "lorem ipsum dolor sit amet" },
-        //             { id: 3, content: "lorem ipsum dolor sit amet" },
-        //             { id: 4, content: "lorem ipsum dolor sit amet" },
-        //             { id: 5, content: "lorem ipsum dolor sit amet" },
-        //         ],
-        //     })
-        // );
+        if (!state.heroHeading && !state.logo && !state.title) {
+            setInitialDataToDb();
+        }
 
         const initailData = JSON.parse(
             localStorage.getItem("initialdata") || "{}"

@@ -7,6 +7,7 @@ import {
     initialState,
     usePageContent,
 } from "../contexts/PageContentContext";
+import { theme } from "../expand-theme";
 import { convertToBase64 } from "../utils";
 import FileUploader from "./FileUploader";
 // import Banner from "../assets/logo.webp"
@@ -38,6 +39,7 @@ const Hero = () => {
         >
             <Typography
                 contentEditable={state.edit}
+                suppressContentEditableWarning={true}
                 onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
                     dispatch({
                         type: actionTypes.INPUT_CHANGE,
@@ -47,12 +49,18 @@ const Hero = () => {
                         },
                     });
                 }}
-                variant="h2"
                 sx={{
                     color: "customColor.main",
                     fontWeight: "bold",
+                    lineHeight: 1.2,
                     textAlign: "center",
                     maxWidth: "80%",
+                    [theme.breakpoints.up("lg")]: {
+                        fontSize: theme.typography.h2.fontSize,
+                    },
+                    [theme.breakpoints.down("md")]: {
+                        fontSize: theme.typography.h4.fontSize,
+                    },
                 }}
             >
                 {state.preview ? state.heroHeading : initialState.heroHeading}
@@ -60,6 +68,7 @@ const Hero = () => {
 
             <Typography
                 contentEditable={state.edit}
+                suppressContentEditableWarning={true}
                 onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
                     dispatch({
                         type: actionTypes.INPUT_CHANGE,
@@ -87,7 +96,15 @@ const Hero = () => {
             <FileUploader handleChange={heroImageUpload} />
             <Box
                 component="img"
-                sx={{ width: 700, height: 360, borderRadius: 10 }}
+                sx={{
+                    [theme.breakpoints.down("md")]: {
+                        width: "100%",
+                    },
+                    [theme.breakpoints.up("md")]: {
+                        width: "700px",
+                        height: "400px",
+                    },
+                }}
                 src={state.heroImage}
             />
         </Stack>

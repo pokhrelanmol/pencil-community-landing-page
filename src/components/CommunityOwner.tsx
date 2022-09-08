@@ -24,6 +24,7 @@ import {
     initialState,
     usePageContent,
 } from "../contexts/PageContentContext";
+import { theme } from "../expand-theme";
 import { convertToBase64 } from "../utils";
 import FileUploader from "./FileUploader";
 
@@ -101,6 +102,9 @@ const CommunityOwner = () => {
         <Stack
             direction="row"
             sx={{
+                [theme.breakpoints.down("md")]: {
+                    flexDirection: "column",
+                },
                 justifyContent: "space-around",
                 mt: 5,
                 p: 10,
@@ -130,6 +134,7 @@ const CommunityOwner = () => {
                 />
                 <Typography
                     contentEditable={state.edit}
+                    suppressContentEditableWarning={true}
                     onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
                         dispatch({
                             type: actionTypes.INPUT_CHANGE,
@@ -148,6 +153,7 @@ const CommunityOwner = () => {
             <Stack sx={{ maxWidth: "80%", alignItems: "center", gap: 2 }}>
                 <Typography
                     contentEditable={state.edit}
+                    suppressContentEditableWarning={true}
                     onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
                         dispatch({
                             type: actionTypes.INPUT_CHANGE,
@@ -165,6 +171,7 @@ const CommunityOwner = () => {
                 </Typography>
                 <Typography
                     contentEditable={state.edit}
+                    suppressContentEditableWarning={true}
                     onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
                         dispatch({
                             type: actionTypes.INPUT_CHANGE,

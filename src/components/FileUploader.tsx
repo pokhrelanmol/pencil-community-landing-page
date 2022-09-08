@@ -13,7 +13,6 @@ const FileUploader = ({
     return (
         <label style={{ cursor: "pointer" }}>
             <Tooltip title="upload image">
-                {/* <CameraAltOutlined /> */}
                 <CameraAltOutlined />
             </Tooltip>
             <input

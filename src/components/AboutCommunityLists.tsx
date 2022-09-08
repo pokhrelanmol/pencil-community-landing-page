@@ -20,6 +20,7 @@ import {
     initialState,
     usePageContent,
 } from "../contexts/PageContentContext";
+import { theme } from "../expand-theme";
 
 const CheckIcon = styled(Check)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
@@ -63,6 +64,7 @@ const AboutCommunityCard = ({
                         });
                     }}
                     contentEditable={state.edit}
+                    suppressContentEditableWarning={true}
                 >
                     {state.preview
                         ? content
@@ -82,7 +84,12 @@ const AboutCommunityLists = () => {
                 sx={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr",
-                    gridTemplateRows: "1fr 1fr",
+                    [theme.breakpoints.down("md")]: {
+                        gridTemplateColumns: "1fr",
+                        justifyItems: "center",
+                        gap: 3,
+                    },
+
                     justifyItems: "end",
                 }}
             >

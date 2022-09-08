@@ -1,4 +1,11 @@
-import { Camera, CameraAltOutlined } from "@mui/icons-material";
+import {
+    Camera,
+    CameraAltOutlined,
+    CancelOutlined,
+    Edit,
+    PreviewOutlined,
+    SaveAltOutlined,
+} from "@mui/icons-material";
 import {
     AppBar,
     Avatar,
@@ -8,6 +15,7 @@ import {
     IconButton,
     Input,
     Toolbar,
+    Tooltip,
     Typography,
 } from "@mui/material";
 import React, { HtmlHTMLAttributes, useEffect } from "react";
@@ -16,6 +24,7 @@ import {
     initialState,
     usePageContent,
 } from "../contexts/PageContentContext";
+import { theme } from "../expand-theme";
 import { convertToBase64 } from "../utils";
 import FileUploader from "./FileUploader";
 // import Logo from "../assets/logo.webp";
@@ -68,6 +77,7 @@ const Header = () => {
                     </Box>
                     <Typography
                         contentEditable={state.edit}
+                        suppressContentEditableWarning={true}
                         ml={1}
                         onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
                             dispatch({
@@ -82,32 +92,56 @@ const Header = () => {
                         sx={{
                             flexGrow: 1,
                             color: "customColor.main",
+                            [theme.breakpoints.up("sm")]: {
+                                fontSize: theme.typography.h5.fontSize,
+                            },
+                            [theme.breakpoints.down("sm")]: {
+                                fontSize: "12px",
+                            },
                         }}
                     >
                         {state.preview ? state.title : initialState.title}
                     </Typography>
 
                     <Box display="flex" gap={2}>
-                        <Button variant="outlined">Login</Button>
+                        {!state.edit && (
+                            <Button variant="outlined">Login</Button>
+                        )}
                         {state.edit || state.preview ? (
-                            <Button
-                                variant="contained"
-                                onClick={handleSaveButtonClick}
-                            >
-                                save
-                            </Button>
+                            <Tooltip title="Save">
+                                <IconButton onClick={handleSaveButtonClick}>
+                                    <SaveAltOutlined color="secondary" />
+                                </IconButton>
+                            </Tooltip>
                         ) : null}
-                        <Button
-                            color="secondary"
-                            variant="contained"
-                            onClick={
-                                state.edit
-                                    ? handlePreview
-                                    : handleEditButtonClick
-                            }
-                        >
-                            {state.edit ? "preview" : "Edit"}
-                        </Button>
+                        {state.edit ? (
+                            <Tooltip title="Preview">
+                                <IconButton onClick={handlePreview}>
+                                    <PreviewOutlined color="primary" />
+                                </IconButton>
+                            </Tooltip>
+                        ) : (
+                            <Tooltip title="Edit">
+                                <IconButton onClick={handleEditButtonClick}>
+                                    <Edit color="primary" />
+                                </IconButton>
+                            </Tooltip>
+                        )}
+
+                        {state.edit && (
+                            <Tooltip title="Cancel Edit">
+                                <IconButton>
+                                    <CancelOutlined
+                                        color="error"
+                                        onClick={() => {
+                                            dispatch({
+                                                type: actionTypes.CANCEL_EDIT,
+                                            });
+                                        }}
+                                    />
+                                </IconButton>
+                            </Tooltip>
+                        )}
                     </Box>
                 </Toolbar>
             </Box>
