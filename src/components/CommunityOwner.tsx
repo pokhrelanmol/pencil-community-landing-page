@@ -25,6 +25,7 @@ import {
     usePageContent,
 } from "../contexts/PageContentContext";
 import { convertToBase64 } from "../utils";
+import FileUploader from "./FileUploader";
 
 const IconProvider = ({
     Icon,
@@ -109,14 +110,7 @@ const CommunityOwner = () => {
             }}
         >
             <Box>
-                {state.edit && (
-                    <input
-                        className="custom-file-input"
-                        accept="image/*"
-                        type="file"
-                        onChange={ownerImageUpload}
-                    />
-                )}
+                <FileUploader handleChange={ownerImageUpload} />
 
                 <Box
                     component="img"

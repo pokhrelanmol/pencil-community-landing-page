@@ -1,3 +1,4 @@
+import { FileUpload } from "@mui/icons-material";
 import { Button, Container, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
@@ -7,10 +8,11 @@ import {
     usePageContent,
 } from "../contexts/PageContentContext";
 import { convertToBase64 } from "../utils";
+import FileUploader from "./FileUploader";
 // import Banner from "../assets/logo.webp"
 const Hero = () => {
     const { state, dispatch } = usePageContent();
-    const handleHeroImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const heroImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.currentTarget.files
             ? e.currentTarget.files[0]
             : ("null" as unknown as File);
@@ -82,17 +84,11 @@ const Hero = () => {
             <Button size="large" variant="contained">
                 Join
             </Button>
-            {state.edit && (
-                <input
-                    className="custom-file-input"
-                    type="file"
-                    onChange={handleHeroImageUpload}
-                />
-            )}
+            <FileUploader handleChange={heroImageUpload} />
             <Box
                 component="img"
                 sx={{ width: 700, height: 360, borderRadius: 10 }}
-                src={state.preview ? state.heroImage : initialState.heroImage}
+                src={state.heroImage}
             />
         </Stack>
     );

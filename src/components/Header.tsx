@@ -1,8 +1,10 @@
+import { Camera, CameraAltOutlined } from "@mui/icons-material";
 import {
     AppBar,
     Avatar,
     Box,
     Button,
+    Icon,
     IconButton,
     Input,
     Toolbar,
@@ -15,6 +17,7 @@ import {
     usePageContent,
 } from "../contexts/PageContentContext";
 import { convertToBase64 } from "../utils";
+import FileUploader from "./FileUploader";
 // import Logo from "../assets/logo.webp";
 const Header = () => {
     const { state, dispatch } = usePageContent();
@@ -59,17 +62,9 @@ const Header = () => {
             >
                 <Toolbar>
                     <Box>
-                        {state.edit && (
-                            <input
-                                className="custom-file-input"
-                                type="file"
-                                onChange={handleLogoUpload}
-                            />
-                        )}
+                        <FileUploader handleChange={handleLogoUpload} />
 
-                        <Avatar
-                            src={state.preview ? state.logo : initialState.logo}
-                        />
+                        <Avatar src={state.logo} />
                     </Box>
                     <Typography
                         contentEditable={state.edit}
