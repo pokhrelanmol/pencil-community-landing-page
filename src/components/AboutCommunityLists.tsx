@@ -1,26 +1,18 @@
 import {
     Box,
-    Button,
     IconButton,
     List,
     ListItem,
-    ListItemButton,
     ListItemIcon,
     ListItemText,
-    Paper,
-    Stack,
     styled,
     Tooltip,
-    Typography,
 } from "@mui/material";
 import { Check, Delete } from "@mui/icons-material";
 import React from "react";
-import {
-    actionTypes,
-    initialState,
-    usePageContent,
-} from "../contexts/PageContentContext";
+import { initialState, useAppContext } from "../contexts/AppContext";
 import { theme } from "../expand-theme";
+import { actionTypes } from "../contexts/types";
 
 const CheckIcon = styled(Check)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
@@ -37,7 +29,7 @@ const AboutCommunityCard = ({
     content: string;
     id: number;
 }) => {
-    const { state, dispatch } = usePageContent();
+    const { state, dispatch } = useAppContext();
     return (
         <ListItem
             disablePadding
@@ -76,7 +68,7 @@ const AboutCommunityCard = ({
 };
 
 const AboutCommunityLists = () => {
-    const { state, dispatch } = usePageContent();
+    const { state, dispatch } = useAppContext();
 
     return (
         <Box sx={{ pt: 5 }}>

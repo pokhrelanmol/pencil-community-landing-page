@@ -1,29 +1,8 @@
-import {
-    Facebook,
-    Instagram,
-    LinkedIn,
-    Twitter,
-    YouTube,
-} from "@mui/icons-material";
-import {
-    Autocomplete,
-    Box,
-    Fab,
-    IconButton,
-    Input,
-    Link,
-    Paper,
-    Stack,
-    styled,
-    TextField,
-    Typography,
-} from "@mui/material";
+import { Facebook, LinkedIn, Twitter, YouTube } from "@mui/icons-material";
+import { Box, Fab, Input, Link, Stack, Typography } from "@mui/material";
 import React, { ReactComponentElement, ReactNode } from "react";
-import {
-    actionTypes,
-    initialState,
-    usePageContent,
-} from "../contexts/PageContentContext";
+import { initialState, useAppContext } from "../contexts/AppContext";
+import { actionTypes } from "../contexts/types";
 import { theme } from "../expand-theme";
 import { convertToBase64 } from "../utils";
 import FileUploader from "./FileUploader";
@@ -37,7 +16,7 @@ const IconProvider = ({
     iconName: string;
     link: string;
 }) => {
-    const { state, dispatch } = usePageContent();
+    const { state, dispatch } = useAppContext();
     return (
         <>
             {state.edit ? (
@@ -84,7 +63,7 @@ const IconProvider = ({
 };
 
 const CommunityOwner = () => {
-    const { state, dispatch } = usePageContent();
+    const { state, dispatch } = useAppContext();
     const ownerImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.currentTarget.files
             ? e.currentTarget.files[0]

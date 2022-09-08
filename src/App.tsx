@@ -9,14 +9,11 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Testimonial from "./components/Testimonial";
 import Toast from "./components/Toast";
-import {
-    actionTypes,
-    initialState,
-    usePageContent,
-} from "./contexts/PageContentContext";
+import { initialState, useAppContext } from "./contexts/AppContext";
+import { actionTypes } from "./contexts/types";
 
 const App = () => {
-    const { state, dispatch } = usePageContent();
+    const { state, dispatch } = useAppContext();
     return (
         <div className="app">
             <Box sx={{ backgroundColor: "customColor.light" }}>

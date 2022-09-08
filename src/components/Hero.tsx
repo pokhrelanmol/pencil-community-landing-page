@@ -1,24 +1,18 @@
-import { FileUpload } from "@mui/icons-material";
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import {
-    actionTypes,
-    initialState,
-    usePageContent,
-} from "../contexts/PageContentContext";
+import { initialState, useAppContext } from "../contexts/AppContext";
+import { actionTypes } from "../contexts/types";
 import { theme } from "../expand-theme";
 import { convertToBase64 } from "../utils";
 import FileUploader from "./FileUploader";
-// import Banner from "../assets/logo.webp"
 const Hero = () => {
-    const { state, dispatch } = usePageContent();
+    const { state, dispatch } = useAppContext();
     const heroImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.currentTarget.files
             ? e.currentTarget.files[0]
             : ("null" as unknown as File);
 
-        //  const base64 = file ? URL.createObjectURL(file) : "";
         convertToBase64(file).then((data) => {
             dispatch({
                 type: actionTypes.INPUT_CHANGE,

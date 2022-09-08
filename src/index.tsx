@@ -2,7 +2,7 @@ import { ThemeProvider } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { PageContentProvider } from "./contexts/PageContentContext";
+import { PageContentProvider } from "./contexts/AppContext";
 import "./index.css";
 import { theme } from "./expand-theme";
 

@@ -1,21 +1,15 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
-import MuiAccordionSummary, {
-    AccordionSummaryProps,
-} from "@mui/material/AccordionSummary";
-import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { actionTypes, usePageContent } from "../contexts/PageContentContext";
+import { useAppContext } from "../contexts/AppContext";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { Container } from "@mui/system";
+import { actionTypes } from "../contexts/types";
 
 export default function Faq() {
-    const { state, dispatch } = usePageContent();
+    const { state, dispatch } = useAppContext();
     return (
         <Container sx={{ mt: 5 }}>
             <Typography variant="h4" textAlign="center">
@@ -23,7 +17,7 @@ export default function Faq() {
             </Typography>
             {state.faqs &&
                 state.faqs.map((faq, index) => (
-                    <Accordion key={index}>
+                    <Accordion key={faq.id}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"

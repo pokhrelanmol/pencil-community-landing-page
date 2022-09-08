@@ -1,105 +1,10 @@
-import { Co2Sharp } from "@mui/icons-material";
 import React, { useContext, createContext, useEffect } from "react";
-import { faq } from "../assets/dummyData";
 import { setInitialDataToDb } from "../utils";
-interface PageContentType {
-    logo: string;
-    title: string;
-    heroImage: string;
-    heroHeading: string;
-    heroSubHeading: string;
-    textBelowHeroSection: string;
-    aboutCommunityList: Array<{ id: number; content: string }>;
-    communityOwnerImage: string;
-    communityOwnerName: string;
-    communityOwnerHeading: string;
-    communityOwnerDescription: string;
+import { Actions, actionTypes, AppContextProps, AppContextType } from "./types";
 
-    communityOwnerSocialMediaLink: {
-        facebook?: string;
-        youtube?: string;
-        linkedin?: string;
-        twitter?: string;
-    };
-    faqs: Array<{ id: number; question: string; answer: string }>;
-    edit: boolean;
-    preview: boolean;
-    saved: boolean;
-}
+const AppContext = createContext<AppContextProps>({} as AppContextProps);
 
-interface PageContentContextProps {
-    state: PageContentType;
-    dispatch: React.Dispatch<Actions>;
-}
-
-export enum actionTypes {
-    SET_INITIAL_STATE = "SET_INITIAL_STATE",
-    EDIT = "EDIT",
-    INPUT_CHANGE = "INPUT_CHANGE",
-    DELETE_LIST_ITEM = "DELETE_LIST_ITEM",
-    LIST_ITEM_CHANGE = "LIST_ITEM_CHANGE",
-    PREVIEW = "PREVIEW",
-    FAQ_CHANGE = "FAQ_CHANGE",
-    SAVE = "SAVE",
-    CANCEL_EDIT = "CANCEL_EDIT",
-}
-type SET_INITIAL_STATE = {
-    type: actionTypes.SET_INITIAL_STATE;
-    payload: PageContentType;
-};
-type EDIT = {
-    type: actionTypes.EDIT;
-    payload: boolean;
-};
-type INPUT_CHANGE = {
-    type: actionTypes.INPUT_CHANGE;
-    payload: PageContentType;
-};
-type LIST_ITEM_CHANGE = {
-    type: actionTypes.LIST_ITEM_CHANGE;
-    payload: {
-        id: number;
-        content: string;
-    };
-};
-type FAQ_CHANGE = {
-    type: actionTypes.FAQ_CHANGE;
-    payload: {
-        id: number;
-        question: string;
-        answer: string;
-    };
-};
-type PREVIEW = {
-    type: actionTypes.PREVIEW;
-    payload: PageContentType;
-};
-type DELETE_LIST_ITEM = {
-    type: actionTypes.DELETE_LIST_ITEM;
-};
-
-type SAVE = {
-    type: actionTypes.SAVE;
-};
-type CANCEL_EDIT = {
-    type: actionTypes.CANCEL_EDIT;
-};
-type Actions =
-    | SET_INITIAL_STATE
-    | EDIT
-    | INPUT_CHANGE
-    | LIST_ITEM_CHANGE
-    | FAQ_CHANGE
-    | DELETE_LIST_ITEM
-    | PREVIEW
-    | SAVE
-    | CANCEL_EDIT;
-
-const PageContentContext = createContext<PageContentContextProps>(
-    {} as PageContentContextProps
-);
-
-export let initialState: PageContentType = {
+export let initialState: AppContextType = {
     logo: "",
     title: "",
     heroImage: "",
@@ -124,7 +29,7 @@ export let initialState: PageContentType = {
     aboutCommunityList: [],
 };
 
-const reducer = (state: PageContentType, action: Actions) => {
+const reducer = (state: AppContextType, action: Actions) => {
     switch (action.type) {
         case actionTypes.SET_INITIAL_STATE:
             return {
@@ -218,10 +123,10 @@ export const PageContentProvider = ({
         });
     }, [state.saved]);
     return (
-        <PageContentContext.Provider value={{ state, dispatch }}>
+        <AppContext.Provider value={{ state, dispatch }}>
             {children}
-        </PageContentContext.Provider>
+        </AppContext.Provider>
     );
 };
 
-export const usePageContent = () => useContext(PageContentContext);
+export const useAppContext = () => useContext(AppContext);

@@ -1,48 +1,34 @@
 import {
-    Camera,
-    CameraAltOutlined,
     CancelOutlined,
     Edit,
     PreviewOutlined,
     SaveAltOutlined,
 } from "@mui/icons-material";
 import {
-    AppBar,
     Avatar,
     Box,
     Button,
-    Icon,
     IconButton,
-    Input,
     Toolbar,
     Tooltip,
     Typography,
 } from "@mui/material";
-import React, { HtmlHTMLAttributes, useEffect } from "react";
-import {
-    actionTypes,
-    initialState,
-    usePageContent,
-} from "../contexts/PageContentContext";
+import React from "react";
+import { initialState, useAppContext } from "../contexts/AppContext";
+import { actionTypes } from "../contexts/types";
 import { theme } from "../expand-theme";
 import { convertToBase64 } from "../utils";
 import FileUploader from "./FileUploader";
-// import Logo from "../assets/logo.webp";
 const Header = () => {
-    const { state, dispatch } = usePageContent();
-    // const [edit, setEdit] = React.useState(false);
-    const [embbedEditedData, setEmbbedEditedData] = React.useState(false);
+    const { state, dispatch } = useAppContext();
     const handleEditButtonClick = () => {
         dispatch({ type: actionTypes.EDIT, payload: true });
     };
     const handleSaveButtonClick = () => {
         dispatch({ type: actionTypes.SAVE });
-
-        setEmbbedEditedData(true);
     };
     const handlePreview = () => {
         dispatch({ type: actionTypes.PREVIEW, payload: state });
-        setEmbbedEditedData(false);
     };
     const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.currentTarget.files

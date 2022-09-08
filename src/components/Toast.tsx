@@ -1,10 +1,10 @@
 import { Cancel } from "@mui/icons-material";
 import { Alert, AlertTitle, Collapse, IconButton } from "@mui/material";
 import React from "react";
-import { usePageContent } from "../contexts/PageContentContext";
+import { useAppContext } from "../contexts/AppContext";
 
 const Toast = () => {
-    const { state } = usePageContent();
+    const { state } = useAppContext();
     const [open, setOpen] = React.useState(true);
     if (!state.edit) return null;
     return (

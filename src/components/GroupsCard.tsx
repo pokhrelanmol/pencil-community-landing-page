@@ -21,7 +21,6 @@ const GroupsCard = ({
     description,
     image,
     link,
-    id,
 }: GroupsCardProps) => {
     return (
         <Card sx={{ maxWidth: 345 }}>

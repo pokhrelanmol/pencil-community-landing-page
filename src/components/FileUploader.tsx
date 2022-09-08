@@ -1,14 +1,14 @@
-import { CameraAltOutlined, ResetTvRounded } from "@mui/icons-material";
+import { CameraAltOutlined } from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 import React from "react";
-import { usePageContent } from "../contexts/PageContentContext";
+import { useAppContext } from "../contexts/AppContext";
 
 const FileUploader = ({
     handleChange,
 }: {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
-    const { state } = usePageContent();
+    const { state } = useAppContext();
     if (!state.edit) return null;
     return (
         <label style={{ cursor: "pointer" }}>
