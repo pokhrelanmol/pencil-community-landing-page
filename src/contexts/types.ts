@@ -34,6 +34,7 @@ export enum actionTypes {
     SET_INITIAL_STATE = "SET_INITIAL_STATE",
     EDIT = "EDIT",
     INPUT_CHANGE = "INPUT_CHANGE",
+    ADD_LIST_ITEM = "ADD_LIST_ITEM",
     DELETE_LIST_ITEM = "DELETE_LIST_ITEM",
     LIST_ITEM_CHANGE = "LIST_ITEM_CHANGE",
     PREVIEW = "PREVIEW",
@@ -52,6 +53,10 @@ type EDIT = {
 type INPUT_CHANGE = {
     type: actionTypes.INPUT_CHANGE;
     payload: AppContextType;
+};
+type ADD_LIST_ITEM = {
+    type: actionTypes.ADD_LIST_ITEM;
+    payload: string;
 };
 type LIST_ITEM_CHANGE = {
     type: actionTypes.LIST_ITEM_CHANGE;
@@ -86,6 +91,7 @@ export type Actions =
     | SET_INITIAL_STATE
     | EDIT
     | INPUT_CHANGE
+    | ADD_LIST_ITEM
     | LIST_ITEM_CHANGE
     | FAQ_CHANGE
     | DELETE_LIST_ITEM

@@ -23,14 +23,9 @@ const Testimonial = ({ username, image, review }: TestimonialProps) => {
                     padding: 4,
                 }}
             >
-                <Avatar src={image} />
+                <Avatar sx={{ width: 56, height: 56 }} src={image} />
                 <CardContent>
-                    <Typography
-                        textAlign="center"
-                        gutterBottom
-                        variant="h5"
-                        component="div"
-                    >
+                    <Typography textAlign="center" gutterBottom variant="h5">
                         {username}
                     </Typography>
                     <Typography
@@ -38,7 +33,20 @@ const Testimonial = ({ username, image, review }: TestimonialProps) => {
                         variant="body2"
                         color="text.secondary"
                     >
+                        <span
+                            style={{
+                                display: "inline",
+                                color: "red",
+                                fontWeight: "bold",
+                                fontSize: "3rem",
+                            }}
+                        >
+                            &ldquo;
+                        </span>
                         {review}
+                    </Typography>
+                    <Typography sx={{ mt: 3, fontSize: "0.8rem" }}>
+                        - HR, <span style={{ color: "red" }}>Google</span>
                     </Typography>
                 </CardContent>
             </CardActionArea>

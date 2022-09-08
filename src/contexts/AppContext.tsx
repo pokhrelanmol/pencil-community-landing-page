@@ -54,6 +54,18 @@ const reducer = (state: AppContextType, action: Actions) => {
                         : item
                 ),
             };
+
+        case actionTypes.ADD_LIST_ITEM:
+            return {
+                ...state,
+                aboutCommunityList: [
+                    ...state.aboutCommunityList,
+                    {
+                        id: state.aboutCommunityList.length,
+                        content: action.payload,
+                    },
+                ],
+            };
         case actionTypes.DELETE_LIST_ITEM:
             state.aboutCommunityList.pop();
             return {
@@ -109,10 +121,6 @@ export const PageContentProvider = ({
 }) => {
     const [state, dispatch] = React.useReducer(reducer, initialState);
     useEffect(() => {
-        if (!state.heroHeading && !state.logo && !state.title) {
-            setInitialDataToDb();
-        }
-
         const initailData = JSON.parse(
             localStorage.getItem("initialdata") || "{}"
         );
@@ -122,6 +130,11 @@ export const PageContentProvider = ({
             payload: initailData,
         });
     }, [state.saved]);
+    useEffect(() => {
+        if (!state.heroHeading && !state.logo && !state.title) {
+            setInitialDataToDb();
+        }
+    }, []);
     return (
         <AppContext.Provider value={{ state, dispatch }}>
             {children}

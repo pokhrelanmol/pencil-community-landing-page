@@ -10,7 +10,14 @@ const Toast = () => {
     return (
         <Collapse in={open}>
             <Alert
-                sx={{ maxWidth: "60%", mx: "auto" }}
+                variant="filled"
+                sx={{
+                    position: "fixed",
+                    transform: "translate(-50%, -50%)",
+                    top: "10%",
+                    left: "50%",
+                    zIndex: 1,
+                }}
                 severity="info"
                 color="info"
                 action={

@@ -7,23 +7,25 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { Container } from "@mui/system";
 import { actionTypes } from "../contexts/types";
+import uniqid from "uniqid";
 
 export default function Faq() {
     const { state, dispatch } = useAppContext();
     return (
-        <Container sx={{ mt: 5 }}>
+        <Container sx={{ my: 5 }}>
             <Typography variant="h4" textAlign="center">
                 FAQ
             </Typography>
             {state.faqs &&
                 state.faqs.map((faq, index) => (
-                    <Accordion key={faq.id}>
+                    <Accordion key={uniqid()}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
                             <Typography
+                                suppressContentEditableWarning={true}
                                 onInput={(
                                     e: React.ChangeEvent<HTMLInputElement>
                                 ) => {
@@ -46,6 +48,7 @@ export default function Faq() {
                         <AccordionDetails>
                             <Typography
                                 contentEditable={state.edit}
+                                suppressContentEditableWarning={true}
                                 onInput={(
                                     e: React.ChangeEvent<HTMLInputElement>
                                 ) => {
