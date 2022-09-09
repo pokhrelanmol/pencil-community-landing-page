@@ -128,7 +128,9 @@ const CommunityOwner = () => {
                     variant="h5"
                     textAlign="center"
                 >
-                    Mia Khalifa
+                    {state.preview
+                        ? state.communityOwnerName
+                        : initialState.communityOwnerName}
                 </Typography>
             </Box>
             <Stack sx={{ maxWidth: "80%", alignItems: "center", gap: 2 }}>
@@ -153,7 +155,9 @@ const CommunityOwner = () => {
                     variant="h5"
                     textAlign="center"
                 >
-                    Community Owner
+                    {state.preview
+                        ? state.communityOwnerHeading
+                        : initialState.communityOwnerHeading}
                 </Typography>
                 <Typography
                     contentEditable={state.edit}
@@ -172,10 +176,9 @@ const CommunityOwner = () => {
                     textAlign="center"
                     variant="body1"
                 >
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Praesentium, quam nam repellat sint, dolores earum facere
-                    dolor rem quibusdam quia vel ducimus accusamus qui culpa
-                    corporis id quisquam quaerat quos!
+                    {state.preview
+                        ? state.communityOwnerDescription
+                        : initialState.communityOwnerDescription}
                 </Typography>
                 <Stack direction="row" gap={2}>
                     <IconProvider

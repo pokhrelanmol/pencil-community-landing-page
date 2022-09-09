@@ -28,6 +28,9 @@ export const setInitialDataToDb = () => {
                 " This is text below hero section text click on a edit button and edit it according to your need",
             communityOwnerImage: "https://picsum.photos/100",
             communityOwnerName: "John Doe",
+            communityOwnerHeading: "Community Owner",
+            communityOwnerDescription:
+                "This is community owner description text click on a edit button and edit it according to your need",
             edit: false,
             saved: false,
             preview: false,
