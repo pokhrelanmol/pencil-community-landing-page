@@ -2,6 +2,7 @@ import {
     CancelOutlined,
     Edit,
     PreviewOutlined,
+    Save,
     SaveAltOutlined,
 } from "@mui/icons-material";
 import {
@@ -96,14 +97,55 @@ const Header = () => {
                         {state.edit || state.preview ? (
                             <Tooltip title="Save">
                                 <IconButton onClick={handleSaveButtonClick}>
-                                    <SaveAltOutlined color="secondary" />
+                                    <Save
+                                        sx={{
+                                            [theme.breakpoints.down("md")]: {
+                                                display: "none",
+                                            },
+                                        }}
+                                        color="secondary"
+                                    />
+                                    <Typography
+                                        sx={{
+                                            [theme.breakpoints.down("md")]: {
+                                                display: "block",
+                                            },
+                                            [theme.breakpoints.up("md")]: {
+                                                display: "none",
+                                            },
+
+                                            fontSize: "12px",
+                                        }}
+                                    >
+                                        Save
+                                    </Typography>
                                 </IconButton>
                             </Tooltip>
                         ) : null}
                         {state.edit ? (
                             <Tooltip title="Preview">
                                 <IconButton onClick={handlePreview}>
-                                    <PreviewOutlined color="primary" />
+                                    <PreviewOutlined
+                                        sx={{
+                                            [theme.breakpoints.down("md")]: {
+                                                display: "none",
+                                            },
+                                        }}
+                                        color="primary"
+                                    />
+                                    <Typography
+                                        sx={{
+                                            [theme.breakpoints.up("md")]: {
+                                                display: "block",
+                                            },
+                                            [theme.breakpoints.up("md")]: {
+                                                display: "none",
+                                            },
+                                            fontSize: "12px",
+                                        }}
+                                    >
+                                        preview
+                                    </Typography>
                                 </IconButton>
                             </Tooltip>
                         ) : (

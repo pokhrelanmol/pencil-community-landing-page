@@ -11,6 +11,7 @@ import Testimonial from "./components/Testimonial";
 import Toast from "./components/Toast";
 import { initialState, useAppContext } from "./contexts/AppContext";
 import { actionTypes } from "./contexts/types";
+import uniqid from "uniqid";
 
 const App = () => {
     const { state, dispatch } = useAppContext();
@@ -67,7 +68,7 @@ const App = () => {
                 >
                     {groups.map((group) => (
                         <GroupsCard
-                            key={group.id}
+                            key={uniqid()}
                             name={group.name}
                             description={group.description}
                             image={group.image}
@@ -96,7 +97,7 @@ const App = () => {
                             username={data.username}
                             review={data.review}
                             image={data.image}
-                            key={data.id}
+                            key={uniqid()}
                         />
                     ))}
                 </Grid>

@@ -1,7 +1,6 @@
 import {
     Box,
     IconButton,
-    Input,
     InputBase,
     List,
     ListItem,
@@ -28,15 +27,12 @@ const CheckIcon = styled(Check)(({ theme }) => ({
 const AboutCommunityCard = ({
     content,
     id,
-    listItemAdded,
 }: {
     content: string;
     id: number;
-    listItemAdded: boolean;
 }) => {
     const { state, dispatch } = useAppContext();
-    const [contentThatCanBeEdited, setContentThatCanBeEdited] =
-        React.useState("");
+
     return (
         <ListItem
             disablePadding
@@ -68,8 +64,6 @@ const AboutCommunityCard = ({
                 >
                     {state.preview
                         ? content
-                        : listItemAdded
-                        ? content
                         : initialState.aboutCommunityList[id].content}
                 </ListItemText>
             </ListItem>
@@ -78,8 +72,7 @@ const AboutCommunityCard = ({
 };
 
 const AboutCommunityLists = () => {
-    const [newListItem, setNewListItem] = React.useState("");
-    const [listItemAdded, setListItemAdded] = React.useState(false);
+    // const [newListItem, setNewListItem] = React.useState("");
     const { state, dispatch } = useAppContext();
 
     return (
@@ -102,7 +95,6 @@ const AboutCommunityLists = () => {
                         key={uniqid()}
                         id={index}
                         content={content.content}
-                        listItemAdded={listItemAdded}
                     />
                 ))}
             </List>
@@ -113,7 +105,7 @@ const AboutCommunityLists = () => {
                         justifyContent: "space-around",
                     }}
                 >
-                    <Paper
+                    {/* <Paper
                         component="form"
                         sx={{
                             p: "2px 4px",
@@ -133,7 +125,6 @@ const AboutCommunityLists = () => {
                                     type: actionTypes.ADD_LIST_ITEM,
                                     payload: newListItem,
                                 });
-                                setListItemAdded(true);
                             }}
                             type="button"
                             sx={{ p: "10px" }}
@@ -141,7 +132,7 @@ const AboutCommunityLists = () => {
                         >
                             <Add />
                         </IconButton>
-                    </Paper>
+                    </Paper> */}
                     <Tooltip arrow title="Delete list item">
                         <IconButton
                             sx={{ float: "right" }}
