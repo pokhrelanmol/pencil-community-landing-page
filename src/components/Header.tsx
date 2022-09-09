@@ -1,11 +1,6 @@
+import { CancelOutlined, Edit, RemoveRedEye, Save } from "@mui/icons-material";
 import {
-    CancelOutlined,
-    Edit,
-    PreviewOutlined,
-    Save,
-    SaveAltOutlined,
-} from "@mui/icons-material";
-import {
+    AppBar,
     Avatar,
     Box,
     Button,
@@ -44,11 +39,12 @@ const Header = () => {
     };
 
     return (
-        <Box
+        <AppBar
             sx={{
                 position: "sticky",
-                minWidth: "100%",
+                boxShadow: "none",
                 backgroundColor: "customColor.light",
+                zIndex: 100,
             }}
         >
             <Box
@@ -125,7 +121,7 @@ const Header = () => {
                         {state.edit ? (
                             <Tooltip title="Preview">
                                 <IconButton onClick={handlePreview}>
-                                    <PreviewOutlined
+                                    <RemoveRedEye
                                         sx={{
                                             [theme.breakpoints.down("md")]: {
                                                 display: "none",
@@ -173,7 +169,7 @@ const Header = () => {
                     </Box>
                 </Toolbar>
             </Box>
-        </Box>
+        </AppBar>
     );
 };
 
