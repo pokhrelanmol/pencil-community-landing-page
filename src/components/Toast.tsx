@@ -2,8 +2,11 @@ import { Cancel } from "@mui/icons-material";
 import { Alert, AlertTitle, Collapse, IconButton } from "@mui/material";
 import React from "react";
 import { useAppContext } from "../contexts/AppContext";
-
-const Toast = () => {
+type ToastProps = {
+    type: "success" | "error" | "info" | "warning";
+    message: string;
+};
+const Toast = ({ type, message }: ToastProps) => {
     const { state } = useAppContext();
     const [open, setOpen] = React.useState(true);
     if (!state.edit) return null;
@@ -18,8 +21,8 @@ const Toast = () => {
                     left: "50%",
                     zIndex: 1,
                 }}
-                severity="info"
-                color="info"
+                severity={type}
+                color={type}
                 action={
                     <IconButton
                         aria-label="close"
@@ -33,8 +36,8 @@ const Toast = () => {
                     </IconButton>
                 }
             >
-                <AlertTitle>Info</AlertTitle>
-                Click on a text to edit them
+                <AlertTitle>{type.toUpperCase()}</AlertTitle>
+                {message}
             </Alert>
         </Collapse>
     );

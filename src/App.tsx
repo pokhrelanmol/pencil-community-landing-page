@@ -18,7 +18,8 @@ const App = () => {
     return (
         <div className="app">
             <Box sx={{ backgroundColor: "customColor.light" }}>
-                <Toast />
+                <Toast type="warning" message="You are in a edit mode" />
+                <Toast type="info" message="Click on a text to edit it" />
                 <Header />
                 <Hero />
             </Box>
