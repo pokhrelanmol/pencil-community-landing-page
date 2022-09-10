@@ -16,10 +16,9 @@ const Toast = ({ type, message }: ToastProps) => {
                 variant="filled"
                 sx={{
                     position: "fixed",
-                    transform: "translate(-50%, -50%)",
-                    top: "10%",
-                    left: "50%",
-                    zIndex: 1,
+                    top: "15%",
+                    right: "10%",
+                    zIndex: 100,
                 }}
                 severity={type}
                 color={type}

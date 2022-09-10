@@ -55,17 +55,17 @@ const reducer = (state: AppContextType, action: Actions) => {
                 ),
             };
 
-        // case actionTypes.ADD_LIST_ITEM:
-        //     return {
-        //         ...state,
-        //         aboutCommunityList: [
-        //             ...state.aboutCommunityList,
-        //             {
-        //                 id: state.aboutCommunityList.length,
-        //                 content: action.payload,
-        //             },
-        //         ],
-        //     };
+        case actionTypes.ADD_LIST_ITEM:
+            return {
+                ...state,
+                aboutCommunityList: [
+                    ...state.aboutCommunityList,
+                    {
+                        id: state.aboutCommunityList.length,
+                        content: action.payload,
+                    },
+                ],
+            };
         case actionTypes.DELETE_LIST_ITEM:
             state.aboutCommunityList.pop();
             return {

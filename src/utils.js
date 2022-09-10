@@ -23,7 +23,7 @@ export const setInitialDataToDb = () => {
             heroHeading:
                 "This is hero heading text click on a edit button and edit it according to your need",
             heroSubHeading:
-                "  is hero sub heading text click on a edit button and edit it according to your need",
+                " This is hero sub heading text click on a edit button and edit it according to your need",
             textBelowHeroSection:
                 " This is text below hero section text click on a edit button and edit it according to your need",
             communityOwnerImage: "https://picsum.photos/100",
